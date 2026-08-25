@@ -9,7 +9,7 @@ import {
   PERMISSIONS,
   ROLE_CODES,
   ROLE_PERMISSION_MAP,
-} from "../lib/permissions";
+} from "../src/lib/permissions";
 
 const prisma = new PrismaClient();
 

@@ -4,6 +4,8 @@ Production-oriented transparency portal for barangay and Sangguniang Kabataan (S
 
 > **DEMO DATA WARNING:** Seeded records are for demonstration only and are **not** official government publications.
 
+Application code lives under **`src/`**. See [docs/](docs/) for the development plan and architecture.
+
 ## Stack
 
 - Next.js 15 (App Router) + React 19 + TypeScript
@@ -59,18 +61,15 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run db:migrate` | Prisma migrate |
 | `npm run db:seed` | Seed DEMO data |
 
-## Architecture notes
+## Documentation
 
-- Business logic lives under `lib/` and future `services/` — keep UI thin.
-- Permissions are enforced server-side (`requirePermission`); never trust the client.
-- Financial totals must be computed on the server.
-- Blockchain is optional and non-blocking; CMS works when the network is down.
-- Multi-barangay ready via `Barangay` + `barangayId` FKs (MVP uses one demo barangay).
+| Doc | Description |
+|-----|-------------|
+| [docs/development-plan.md](docs/development-plan.md) | Phased roadmap (Phases 1–6) |
+| [docs/architecture.md](docs/architecture.md) | Folder layout, auth, data flow |
+| [docs/phase-1-foundation.md](docs/phase-1-foundation.md) | Completed foundation phase |
 
-## Phase status
-
-- **Phase 1 (Foundation):** Complete — auth, RBAC, schema, shells, design system
-- Phase 2+: CMS, transparency modules, feedback, blockchain anchoring
+**Status:** Phase 1 (Foundation) complete. Next: Phase 2 — CMS.
 
 ## Environment
 

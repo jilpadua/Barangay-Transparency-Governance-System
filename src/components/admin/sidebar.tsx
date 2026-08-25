@@ -2,7 +2,7 @@ import Link from "next/link";
 import { signOut } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import { hasPermission, PERMISSIONS } from "@/lib/permissions";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils";
 
 type NavItem = {
   href: string;
