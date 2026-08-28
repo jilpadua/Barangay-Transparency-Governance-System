@@ -1,0 +1,60 @@
+// ─── Resolutions & Ordinances ────────────────────────────────────────────────
+
+model Resolution {
+  id               String                @id @default(cuid())
+  barangayId       String
+  referenceNumber  String
+  title            String
+  type             String?
+  subject          String?
+  authoringBody    String?
+  resolutionDate   DateTime?
+  description      String?               @db.Text
+  documentUrl      String?
+  version          String                @default("1.0")
+  status           LegalInstrumentStatus @default(DRAFT)
+  publicationStatus PublicationStatus    @default(DRAFT)
+  publishedAt      DateTime?
+  isDemo           Boolean               @default(false)
+  isSk             Boolean               @default(false)
+  createdAt        DateTime              @default(now())
+  updatedAt        DateTime              @updatedAt
+
+  barangay Barangay @relation(fields: [barangayId], references: [id], onDelete: Cascade)
+
+  @@index([barangayId])
+  @@index([referenceNumber])
+  @@index([status])
+  @@index([publicationStatus])
+  @@index([publishedAt])
+  @@index([createdAt])
+}
+
+model Ordinance {
+  id               String                @id @default(cuid())
+  barangayId       String
+  referenceNumber  String
+  title            String
+  type             String?
+  subject          String?
+  authoringBody    String?
+  ordinanceDate    DateTime?
+  description      String?               @db.Text
+  documentUrl      String?
+  version          String                @default("1.0")
+  status           LegalInstrumentStatus @default(DRAFT)
+  publicationStatus PublicationStatus    @default(DRAFT)
+  publishedAt      DateTime?
+  isDemo           Boolean               @default(false)
+  createdAt        DateTime              @default(now())
+  updatedAt        DateTime              @updatedAt
+
+  barangay Barangay @relation(fields: [barangayId], references: [id], onDelete: Cascade)
+
+  @@index([barangayId])
+  @@index([referenceNumber])
+  @@index([status])
+  @@index([publicationStatus])
+  @@index([publishedAt])
+  @@index([createdAt])
+}

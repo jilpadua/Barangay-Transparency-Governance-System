@@ -1,0 +1,78 @@
+// ─── Enums ───────────────────────────────────────────────────────────────────
+
+enum PublicationStatus {
+  DRAFT
+  FOR_REVIEW
+  APPROVED
+  PUBLISHED
+  ARCHIVED
+}
+
+enum ProjectStatus {
+  PLANNING
+  PROCUREMENT
+  APPROVED
+  ONGOING
+  DELAYED
+  COMPLETED
+  CANCELLED
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  EXCUSED
+}
+
+enum FeedbackType {
+  SUGGESTION
+  COMPLAINT
+  PROJECT_CONCERN
+  SERVICE_FEEDBACK
+  INFORMATION_REQUEST
+  OTHER
+}
+
+enum FeedbackStatus {
+  RECEIVED
+  UNDER_REVIEW
+  ASSIGNED
+  ACTION_TAKEN
+  RESOLVED
+  CLOSED
+}
+
+enum BlockchainProofStatus {
+  PENDING
+  SUBMITTED
+  CONFIRMED
+  FAILED
+  MISMATCH
+}
+
+enum OfficialBody {
+  BARANGAY
+  SK
+}
+
+enum DocumentVisibility {
+  PUBLIC
+  INTERNAL
+  RESTRICTED
+}
+
+enum MeetingStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+  POSTPONED
+}
+
+enum LegalInstrumentStatus {
+  DRAFT
+  PENDING
+  APPROVED
+  ENACTED
+  REPEALED
+  ARCHIVED
+}

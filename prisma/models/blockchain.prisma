@@ -1,0 +1,49 @@
+// ─── Blockchain ──────────────────────────────────────────────────────────────
+
+model BlockchainProof {
+  id              String                @id @default(cuid())
+  barangayId      String?
+  recordId        String
+  recordType      String
+  version         String                @default("1.0")
+  contentHash     String
+  network         String?
+  transactionHash String?
+  blockNumber     Int?
+  anchoredAt      DateTime?
+  status          BlockchainProofStatus @default(PENDING)
+  errorMessage    String?               @db.Text
+  retryCount      Int                   @default(0)
+  createdAt       DateTime              @default(now())
+  updatedAt       DateTime              @updatedAt
+
+  barangay Barangay? @relation(fields: [barangayId], references: [id])
+
+  @@index([recordId])
+  @@index([recordType])
+  @@index([status])
+  @@index([transactionHash])
+  @@index([createdAt])
+  @@index([barangayId])
+}
+
+model BlockchainMilestone {
+  id              String                @id @default(cuid())
+  projectId       String
+  milestoneKey    String
+  title           String
+  recordId        String?
+  supportingDocUrl String?
+  contentHash     String?
+  transactionHash String?
+  status          BlockchainProofStatus @default(PENDING)
+  occurredAt      DateTime              @default(now())
+  createdAt       DateTime              @default(now())
+  updatedAt       DateTime              @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([status])
+  @@index([occurredAt])
+}

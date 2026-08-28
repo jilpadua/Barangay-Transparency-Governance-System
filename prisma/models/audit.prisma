@@ -1,0 +1,29 @@
+// ─── Audit ───────────────────────────────────────────────────────────────────
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  barangayId String?
+  userId     String?
+  userEmail  String?
+  userRole   String?
+  action     String
+  module     String
+  recordId   String?
+  fieldName  String?
+  oldValue   String?  @db.Text
+  newValue   String?  @db.Text
+  ipAddress  String?
+  userAgent  String?
+  metadata   Json?
+  createdAt  DateTime @default(now())
+
+  barangay Barangay? @relation(fields: [barangayId], references: [id])
+  user     User?     @relation(fields: [userId], references: [id])
+
+  @@index([barangayId])
+  @@index([userId])
+  @@index([module])
+  @@index([recordId])
+  @@index([createdAt])
+  @@index([action])
+}
