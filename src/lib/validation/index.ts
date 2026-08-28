@@ -16,7 +16,7 @@ export const paginationSchema = z.object({
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 });
 
-export function parseOrThrow<T>(schema: z.ZodSchema<T>, data: unknown): T {
+export function parseOrThrow(schema: z.ZodTypeAny, data: unknown) {
   const result = schema.safeParse(data);
   if (!result.success) {
     throw new Error(result.error.issues.map((i) => i.message).join("; "));

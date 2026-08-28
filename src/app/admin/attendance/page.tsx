@@ -1,13 +1,5 @@
-import { requirePermission } from "@/lib/permissions/server";
-import { PERMISSIONS } from "@/lib/permissions";
-import { AdminModulePlaceholder } from "@/components/shared/module-placeholder";
+import { redirect } from "next/navigation";
 
-export default async function Page() {
-  await requirePermission(PERMISSIONS.ATTENDANCE_MANAGE);
-  return (
-    <AdminModulePlaceholder
-      title="Attendance"
-      description="Official attendance records and summaries."
-    />
-  );
+export default function AttendancePage() {
+  redirect("/admin/meetings");
 }

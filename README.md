@@ -68,8 +68,9 @@ Open [http://localhost:3000](http://localhost:3000).
 | [docs/development-plan.md](docs/development-plan.md) | Phased roadmap (Phases 1–6) |
 | [docs/architecture.md](docs/architecture.md) | Folder layout, auth, data flow |
 | [docs/phase-1-foundation.md](docs/phase-1-foundation.md) | Completed foundation phase |
+| [docs/phase-2-cms.md](docs/phase-2-cms.md) | Completed CMS phase |
 
-**Status:** Phase 1 (Foundation) complete. Next: Phase 2 — CMS.
+**Status:** Phase 2 (CMS) complete. Next: Phase 3 — Transparency.
 
 ## Environment
 

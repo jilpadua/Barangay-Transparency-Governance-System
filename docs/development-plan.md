@@ -38,13 +38,15 @@ Production-oriented web application for barangay residents and staff: transparen
 
 See [phase-1-foundation.md](./phase-1-foundation.md).
 
-### Phase 2 — CMS
+### Phase 2 — CMS (complete)
 
 - Officials (barangay and SK)
 - Documents (upload, versioning, publish)
 - Events and announcements
 - Meetings and attendance
 - Resolutions and ordinances
+
+See [phase-2-cms.md](./phase-2-cms.md).
 
 ### Phase 3 — Transparency
 
