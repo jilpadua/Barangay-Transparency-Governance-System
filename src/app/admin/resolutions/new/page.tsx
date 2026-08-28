@@ -17,7 +17,7 @@ export default async function NewResolutionPage() {
   return (
     <div className="space-y-6">
       <PageHeader title="Add resolution" />
-      <form action={createResolutionAction} encType="multipart/form-data" className="max-w-2xl space-y-4 rounded-lg border border-[var(--color-border)] bg-white p-6">
+      <form action={createResolutionAction} className="max-w-2xl space-y-4 rounded-lg border border-[var(--color-border)] bg-white p-6">
         <div className="space-y-2"><Label htmlFor="referenceNumber">Reference number</Label><Input id="referenceNumber" name="referenceNumber" required /></div>
         <div className="space-y-2"><Label htmlFor="title">Title</Label><Input id="title" name="title" required /></div>
         <div className="space-y-2"><Label htmlFor="description">Description</Label><Textarea id="description" name="description" rows={4} /></div>

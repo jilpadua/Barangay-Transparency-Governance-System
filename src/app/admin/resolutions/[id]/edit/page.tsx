@@ -28,7 +28,7 @@ export default async function EditResolutionPage({ params }: { params: Promise<{
     <div className="space-y-6">
       <PageHeader title={resolution.title} description={resolution.referenceNumber} actions={<div className="flex gap-2">{resolution.isDemo && <Badge variant="warning">DEMO</Badge>}<PublicationStatusBadge status={resolution.publicationStatus} /></div>} />
       <PublicationActions recordId={id} currentStatus={resolution.publicationStatus} availableTransitions={transitions} onTransition={transitionResolutionAction} />
-      <form action={updateResolutionAction.bind(null, id)} encType="multipart/form-data" className="max-w-2xl space-y-4 rounded-lg border border-[var(--color-border)] bg-white p-6">
+      <form action={updateResolutionAction.bind(null, id)} className="max-w-2xl space-y-4 rounded-lg border border-[var(--color-border)] bg-white p-6">
         <div className="space-y-2"><Label htmlFor="referenceNumber">Reference number</Label><Input id="referenceNumber" name="referenceNumber" defaultValue={resolution.referenceNumber} required /></div>
         <div className="space-y-2"><Label htmlFor="title">Title</Label><Input id="title" name="title" defaultValue={resolution.title} required /></div>
         <div className="space-y-2"><Label htmlFor="description">Description</Label><Textarea id="description" name="description" rows={4} defaultValue={resolution.description ?? ""} /></div>

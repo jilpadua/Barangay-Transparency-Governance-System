@@ -23,7 +23,6 @@ export default async function NewDocumentPage() {
       />
       <form
         action={createDocumentAction}
-        encType="multipart/form-data"
         className="max-w-2xl space-y-4 rounded-lg border border-[var(--color-border)] bg-white p-6"
       >
         <div className="space-y-2">

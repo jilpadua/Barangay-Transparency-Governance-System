@@ -166,7 +166,6 @@ export default async function DocumentDetailPage({
 
       <form
         action={uploadVersionAction.bind(null, id)}
-        encType="multipart/form-data"
         className="max-w-2xl space-y-4 rounded-lg border border-[var(--color-border)] bg-white p-6"
       >
         <h2 className="font-semibold">Upload new version</h2>
