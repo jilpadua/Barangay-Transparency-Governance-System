@@ -6,13 +6,15 @@
 BTGS MVP/
   docs/                 # Plans and architecture (this folder)
   prisma/               # Schema, migrations, seed
-  tests/                # Unit tests
+  tests/
+    unit/               # Vitest unit tests (tests/unit/**/*.test.ts)
   src/
     app/                # Next.js App Router (public, admin, api, login)
+      globals.css       # Global styles (no separate src/styles/ folder)
     components/         # ui / public / admin / shared / providers
     lib/                # Infrastructure: auth, db, permissions, storage, …
-    services/           # Domain / business logic (CRUD, workflows)
-    hooks/              # React hooks
+    services/           # Domain / business logic (CRUD, workflows) — not features/
+    hooks/              # Shared React hooks (placeholder in Phase 1)
     utils/              # Pure helpers (formatting, cn, …)
     types/              # Ambient / shared TypeScript types
     middleware.ts       # Protect /admin; redirect logged-in users from /login
@@ -25,14 +27,17 @@ Path alias: `@/*` maps to `src/*` (for example `@/lib/db`, `@/components/ui/butt
 
 | Path | Role |
 |------|------|
-| `src/app` | Routes and layouts only — thin; call services for logic |
+| `src/app` | Routes, layouts, and `globals.css` — thin; call services for logic |
 | `src/components` | Presentational and shared UI |
 | `src/lib` | Cross-cutting infrastructure (Prisma client, Auth.js, RBAC helpers, storage, hashing, blockchain providers) |
-| `src/services` | Domain operations (create project, publish document, calculate budget totals) |
+| `src/services` | Domain operations (create project, publish document, calculate budget totals). This project uses `services/`, not a `features/` folder |
 | `src/utils` | Pure functions with no I/O |
-| `src/hooks` | Client React hooks |
+| `src/hooks` | Shared client React hooks (feature-specific hooks may live with their feature in Phase 2+) |
+| `tests/unit` | Unit tests run by Vitest; add `tests/integration/` when API/DB tests are added (Phase 6) |
 | `prisma` | Database schema and migrations (stays at repo root) |
 | `docs` | Product and engineering documentation |
+
+There is no `src/styles/` directory. Global CSS and Tailwind live in `src/app/globals.css`, which is the standard Next.js App Router pattern.
 
 ## Auth and RBAC
 
