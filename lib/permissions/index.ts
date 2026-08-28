@@ -1,0 +1,205 @@
+/**
+ * Permission codes used for RBAC checks.
+ * Format: module:action
+ */
+export const PERMISSIONS = {
+  // System
+  SYSTEM_MANAGE: "system:manage",
+  USERS_MANAGE: "users:manage",
+  USERS_VIEW: "users:view",
+  ROLES_MANAGE: "roles:manage",
+  AUDIT_VIEW: "audit:view",
+  SETTINGS_MANAGE: "settings:manage",
+  BLOCKCHAIN_MANAGE: "blockchain:manage",
+  BLOCKCHAIN_VIEW: "blockchain:view",
+
+  // Content modules
+  OFFICIALS_MANAGE: "officials:manage",
+  OFFICIALS_VIEW: "officials:view",
+  DOCUMENTS_MANAGE: "documents:manage",
+  DOCUMENTS_VIEW: "documents:view",
+  DOCUMENTS_PUBLISH: "documents:publish",
+  EVENTS_MANAGE: "events:manage",
+  EVENTS_VIEW: "events:view",
+  ANNOUNCEMENTS_MANAGE: "announcements:manage",
+  ANNOUNCEMENTS_VIEW: "announcements:view",
+  MEETINGS_MANAGE: "meetings:manage",
+  MEETINGS_VIEW: "meetings:view",
+  ATTENDANCE_MANAGE: "attendance:manage",
+  RESOLUTIONS_MANAGE: "resolutions:manage",
+  RESOLUTIONS_VIEW: "resolutions:view",
+  ORDINANCES_MANAGE: "ordinances:manage",
+  ORDINANCES_VIEW: "ordinances:view",
+  ACCOMPLISHMENTS_MANAGE: "accomplishments:manage",
+  ACCOMPLISHMENTS_VIEW: "accomplishments:view",
+
+  // Finance
+  BUDGETS_MANAGE: "budgets:manage",
+  BUDGETS_VIEW: "budgets:view",
+  EXPENSES_MANAGE: "expenses:manage",
+  EXPENSES_VIEW: "expenses:view",
+  FINANCIAL_REPORTS: "financial:reports",
+
+  // Projects / procurement
+  PROJECTS_MANAGE: "projects:manage",
+  PROJECTS_VIEW: "projects:view",
+  PROJECTS_PUBLISH: "projects:publish",
+  PROCUREMENT_MANAGE: "procurement:manage",
+  PROCUREMENT_VIEW: "procurement:view",
+
+  // SK
+  SK_MANAGE: "sk:manage",
+  SK_VIEW: "sk:view",
+
+  // Feedback
+  FEEDBACK_MANAGE: "feedback:manage",
+  FEEDBACK_VIEW: "feedback:view",
+
+  // Reviews / publish
+  REVIEW_APPROVE: "review:approve",
+  PUBLISH: "publish:publish",
+} as const;
+
+export type PermissionCode =
+  (typeof PERMISSIONS)[keyof typeof PERMISSIONS];
+
+export const ROLE_CODES = {
+  SUPER_ADMIN: "SUPER_ADMIN",
+  BARANGAY_ADMIN: "BARANGAY_ADMIN",
+  TREASURER: "TREASURER",
+  SECRETARY: "SECRETARY",
+  SK_ADMIN: "SK_ADMIN",
+  STAFF: "STAFF",
+  AUDITOR: "AUDITOR",
+} as const;
+
+export type RoleCode = (typeof ROLE_CODES)[keyof typeof ROLE_CODES];
+
+/** Default permission sets per role */
+export const ROLE_PERMISSION_MAP: Record<RoleCode, PermissionCode[]> = {
+  SUPER_ADMIN: Object.values(PERMISSIONS),
+  BARANGAY_ADMIN: [
+    PERMISSIONS.SETTINGS_MANAGE,
+    PERMISSIONS.OFFICIALS_MANAGE,
+    PERMISSIONS.OFFICIALS_VIEW,
+    PERMISSIONS.DOCUMENTS_MANAGE,
+    PERMISSIONS.DOCUMENTS_VIEW,
+    PERMISSIONS.DOCUMENTS_PUBLISH,
+    PERMISSIONS.EVENTS_MANAGE,
+    PERMISSIONS.EVENTS_VIEW,
+    PERMISSIONS.ANNOUNCEMENTS_MANAGE,
+    PERMISSIONS.ANNOUNCEMENTS_VIEW,
+    PERMISSIONS.MEETINGS_MANAGE,
+    PERMISSIONS.MEETINGS_VIEW,
+    PERMISSIONS.ACCOMPLISHMENTS_MANAGE,
+    PERMISSIONS.ACCOMPLISHMENTS_VIEW,
+    PERMISSIONS.PROJECTS_MANAGE,
+    PERMISSIONS.PROJECTS_VIEW,
+    PERMISSIONS.PROJECTS_PUBLISH,
+    PERMISSIONS.FEEDBACK_MANAGE,
+    PERMISSIONS.FEEDBACK_VIEW,
+    PERMISSIONS.REVIEW_APPROVE,
+    PERMISSIONS.PUBLISH,
+    PERMISSIONS.USERS_VIEW,
+    PERMISSIONS.AUDIT_VIEW,
+    PERMISSIONS.BLOCKCHAIN_VIEW,
+    PERMISSIONS.BUDGETS_VIEW,
+    PERMISSIONS.EXPENSES_VIEW,
+    PERMISSIONS.PROCUREMENT_VIEW,
+    PERMISSIONS.RESOLUTIONS_VIEW,
+    PERMISSIONS.ORDINANCES_VIEW,
+  ],
+  TREASURER: [
+    PERMISSIONS.BUDGETS_MANAGE,
+    PERMISSIONS.BUDGETS_VIEW,
+    PERMISSIONS.EXPENSES_MANAGE,
+    PERMISSIONS.EXPENSES_VIEW,
+    PERMISSIONS.FINANCIAL_REPORTS,
+    PERMISSIONS.DOCUMENTS_VIEW,
+    PERMISSIONS.PROJECTS_VIEW,
+    PERMISSIONS.PROCUREMENT_VIEW,
+  ],
+  SECRETARY: [
+    PERMISSIONS.OFFICIALS_MANAGE,
+    PERMISSIONS.OFFICIALS_VIEW,
+    PERMISSIONS.MEETINGS_MANAGE,
+    PERMISSIONS.MEETINGS_VIEW,
+    PERMISSIONS.ATTENDANCE_MANAGE,
+    PERMISSIONS.RESOLUTIONS_MANAGE,
+    PERMISSIONS.RESOLUTIONS_VIEW,
+    PERMISSIONS.ORDINANCES_MANAGE,
+    PERMISSIONS.ORDINANCES_VIEW,
+    PERMISSIONS.DOCUMENTS_MANAGE,
+    PERMISSIONS.DOCUMENTS_VIEW,
+    PERMISSIONS.DOCUMENTS_PUBLISH,
+  ],
+  SK_ADMIN: [
+    PERMISSIONS.SK_MANAGE,
+    PERMISSIONS.SK_VIEW,
+    PERMISSIONS.OFFICIALS_MANAGE,
+    PERMISSIONS.OFFICIALS_VIEW,
+    PERMISSIONS.PROJECTS_MANAGE,
+    PERMISSIONS.PROJECTS_VIEW,
+    PERMISSIONS.EVENTS_MANAGE,
+    PERMISSIONS.EVENTS_VIEW,
+    PERMISSIONS.RESOLUTIONS_MANAGE,
+    PERMISSIONS.RESOLUTIONS_VIEW,
+    PERMISSIONS.BUDGETS_VIEW,
+    PERMISSIONS.EXPENSES_VIEW,
+  ],
+  STAFF: [
+    PERMISSIONS.OFFICIALS_VIEW,
+    PERMISSIONS.DOCUMENTS_VIEW,
+    PERMISSIONS.EVENTS_VIEW,
+    PERMISSIONS.ANNOUNCEMENTS_VIEW,
+    PERMISSIONS.MEETINGS_VIEW,
+    PERMISSIONS.PROJECTS_VIEW,
+    PERMISSIONS.BUDGETS_VIEW,
+    PERMISSIONS.EXPENSES_VIEW,
+    PERMISSIONS.FEEDBACK_VIEW,
+    // Staff can create/edit drafts via manage where granted at assignment time;
+    // default seed grants limited manage without publish.
+    PERMISSIONS.ANNOUNCEMENTS_MANAGE,
+    PERMISSIONS.EVENTS_MANAGE,
+    PERMISSIONS.DOCUMENTS_MANAGE,
+  ],
+  AUDITOR: [
+    PERMISSIONS.USERS_VIEW,
+    PERMISSIONS.AUDIT_VIEW,
+    PERMISSIONS.OFFICIALS_VIEW,
+    PERMISSIONS.DOCUMENTS_VIEW,
+    PERMISSIONS.EVENTS_VIEW,
+    PERMISSIONS.ANNOUNCEMENTS_VIEW,
+    PERMISSIONS.MEETINGS_VIEW,
+    PERMISSIONS.RESOLUTIONS_VIEW,
+    PERMISSIONS.ORDINANCES_VIEW,
+    PERMISSIONS.ACCOMPLISHMENTS_VIEW,
+    PERMISSIONS.BUDGETS_VIEW,
+    PERMISSIONS.EXPENSES_VIEW,
+    PERMISSIONS.FINANCIAL_REPORTS,
+    PERMISSIONS.PROJECTS_VIEW,
+    PERMISSIONS.PROCUREMENT_VIEW,
+    PERMISSIONS.SK_VIEW,
+    PERMISSIONS.FEEDBACK_VIEW,
+    PERMISSIONS.BLOCKCHAIN_VIEW,
+  ],
+};
+
+export function hasPermission(
+  userPermissions: string[] | undefined | null,
+  required: PermissionCode | PermissionCode[],
+): boolean {
+  if (!userPermissions || userPermissions.length === 0) return false;
+  const requiredList = Array.isArray(required) ? required : [required];
+  if (userPermissions.includes(PERMISSIONS.SYSTEM_MANAGE)) return true;
+  return requiredList.every((p) => userPermissions.includes(p));
+}
+
+export function hasAnyPermission(
+  userPermissions: string[] | undefined | null,
+  required: PermissionCode[],
+): boolean {
+  if (!userPermissions || userPermissions.length === 0) return false;
+  if (userPermissions.includes(PERMISSIONS.SYSTEM_MANAGE)) return true;
+  return required.some((p) => userPermissions.includes(p));
+}

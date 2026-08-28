@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: btgs-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: btgs
+      POSTGRES_PASSWORD: btgs_dev_password
+      POSTGRES_DB: btgs
+    volumes:
+      - btgs_pg_data:/var/lib/postgresql/data
+
+volumes:
+  btgs_pg_data:
