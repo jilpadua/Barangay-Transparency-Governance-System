@@ -1,18 +1,10 @@
-import { prisma } from "@/lib/db";
+import { listPublishedOfficials } from "@/services/officials";
 import { Badge } from "@/components/ui/badge";
-import { PublicationStatus } from "@prisma/client";
 
 export const dynamic = "force-dynamic";
 
 export default async function OfficialsPage() {
-  const officials = await prisma.official.findMany({
-    where: {
-      publicationStatus: PublicationStatus.PUBLISHED,
-      isActive: true,
-    },
-    include: { committee: true },
-    orderBy: [{ body: "asc" }, { position: "asc" }],
-  });
+  const officials = await listPublishedOfficials();
 
   const barangayOfficials = officials.filter((o) => o.body === "BARANGAY");
   const skOfficials = officials.filter((o) => o.body === "SK");
@@ -44,6 +36,7 @@ function OfficialSection({
     firstName: string;
     lastName: string;
     position: string;
+    photoUrl: string | null;
     publicBio: string | null;
     isDemo: boolean;
     committee: { name: string } | null;
@@ -66,6 +59,14 @@ function OfficialSection({
               <div className="mb-2 flex flex-wrap gap-2">
                 {o.isDemo && <Badge variant="warning">DEMO</Badge>}
               </div>
+              {o.photoUrl && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={o.photoUrl}
+                  alt={`${o.firstName} ${o.lastName}`}
+                  className="mb-3 h-24 w-24 rounded-full object-cover"
+                />
+              )}
               <p className="font-semibold">
                 {o.firstName} {o.lastName}
               </p>
