@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { prisma } from "@/lib/db";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency } from "@/utils";
 import { PublicationStatus, ProjectStatus } from "@prisma/client";
 
 export const dynamic = "force-dynamic";
