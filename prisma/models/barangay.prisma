@@ -1,0 +1,42 @@
+// ─── Barangay ────────────────────────────────────────────────────────────────
+
+model Barangay {
+  id           String   @id @default(cuid())
+  name         String
+  municipality String
+  province     String
+  address      String?
+  contactEmail String?
+  contactPhone String?
+  officeHours  String?
+  history      String?  @db.Text
+  mission      String?  @db.Text
+  vision       String?  @db.Text
+  generalInfo  String?  @db.Text
+  mapEmbedUrl  String?
+  logoUrl      String?
+  tagline      String?
+  isDemo       Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  users           User[]
+  officials       Official[]
+  committees      Committee[]
+  budgets         Budget[]
+  expenses        Expense[]
+  fundSources     FundSource[]
+  projects        Project[]
+  procurements    Procurement[]
+  suppliers       Supplier[]
+  documents       Document[]
+  meetings        Meeting[]
+  resolutions     Resolution[]
+  ordinances      Ordinance[]
+  events          Event[]
+  announcements   Announcement[]
+  accomplishments Accomplishment[]
+  feedbacks       Feedback[]
+  auditLogs       AuditLog[]
+  blockchainProofs BlockchainProof[]
+}

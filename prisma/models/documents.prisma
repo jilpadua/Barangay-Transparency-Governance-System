@@ -1,0 +1,47 @@
+// ─── Documents ───────────────────────────────────────────────────────────────
+
+model Document {
+  id               String             @id @default(cuid())
+  barangayId       String
+  documentCode     String
+  title            String
+  description      String?            @db.Text
+  category         String
+  referenceNumber  String?
+  publicationDate  DateTime?
+  visibility       DocumentVisibility @default(PUBLIC)
+  publicationStatus PublicationStatus @default(DRAFT)
+  publishedAt      DateTime?
+  isDemo           Boolean            @default(false)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  barangay Barangay          @relation(fields: [barangayId], references: [id], onDelete: Cascade)
+  versions DocumentVersion[]
+
+  @@unique([barangayId, documentCode])
+  @@index([barangayId])
+  @@index([category])
+  @@index([referenceNumber])
+  @@index([publicationStatus])
+  @@index([publishedAt])
+  @@index([createdAt])
+}
+
+model DocumentVersion {
+  id          String   @id @default(cuid())
+  documentId  String
+  version     String
+  fileUrl     String
+  fileName    String
+  fileSize    Int?
+  mimeType    String?
+  notes       String?
+  isCurrent   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@index([documentId])
+  @@index([isCurrent])
+}

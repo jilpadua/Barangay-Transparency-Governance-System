@@ -1,0 +1,85 @@
+// ─── Events & Announcements ──────────────────────────────────────────────────
+
+model Event {
+  id              String            @id @default(cuid())
+  barangayId      String
+  title           String
+  description     String?           @db.Text
+  eventDate       DateTime
+  startTime       String?
+  endTime         String?
+  location        String?
+  organizer       String?
+  targetAudience  String?
+  registrationInfo String?          @db.Text
+  results         String?           @db.Text
+  photoUrls       String[]
+  publicationStatus PublicationStatus @default(DRAFT)
+  publishedAt     DateTime?
+  isDemo          Boolean           @default(false)
+  isSk            Boolean           @default(false)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  barangay        Barangay         @relation(fields: [barangayId], references: [id], onDelete: Cascade)
+  accomplishments Accomplishment[]
+
+  @@index([barangayId])
+  @@index([eventDate])
+  @@index([publicationStatus])
+  @@index([publishedAt])
+  @@index([createdAt])
+}
+
+model Announcement {
+  id          String            @id @default(cuid())
+  barangayId  String
+  title       String
+  content     String            @db.Text
+  publishDate DateTime?
+  expireDate  DateTime?
+  featured    Boolean           @default(false)
+  attachmentUrls String[]
+  publicationStatus PublicationStatus @default(DRAFT)
+  publishedAt DateTime?
+  isDemo      Boolean           @default(false)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  barangay Barangay @relation(fields: [barangayId], references: [id], onDelete: Cascade)
+
+  @@index([barangayId])
+  @@index([featured])
+  @@index([publicationStatus])
+  @@index([publishedAt])
+  @@index([createdAt])
+}
+
+// ─── Accomplishments ─────────────────────────────────────────────────────────
+
+model Accomplishment {
+  id          String            @id @default(cuid())
+  barangayId  String
+  projectId   String?
+  eventId     String?
+  title       String
+  reportType  String
+  periodLabel String?
+  description String?           @db.Text
+  documentUrl String?
+  publicationStatus PublicationStatus @default(DRAFT)
+  publishedAt DateTime?
+  isDemo      Boolean           @default(false)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  barangay Barangay @relation(fields: [barangayId], references: [id], onDelete: Cascade)
+  project  Project? @relation(fields: [projectId], references: [id])
+  event    Event?   @relation(fields: [eventId], references: [id])
+
+  @@index([barangayId])
+  @@index([projectId])
+  @@index([publicationStatus])
+  @@index([publishedAt])
+  @@index([createdAt])
+}

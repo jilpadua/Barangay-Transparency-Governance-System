@@ -1,0 +1,48 @@
+// ─── Officials ───────────────────────────────────────────────────────────────
+
+model Committee {
+  id         String   @id @default(cuid())
+  barangayId String
+  name       String
+  body       OfficialBody @default(BARANGAY)
+  description String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  barangay  Barangay  @relation(fields: [barangayId], references: [id], onDelete: Cascade)
+  officials Official[]
+
+  @@index([barangayId])
+}
+
+model Official {
+  id              String       @id @default(cuid())
+  barangayId      String
+  committeeId     String?
+  body            OfficialBody @default(BARANGAY)
+  firstName       String
+  lastName        String
+  middleName      String?
+  position        String
+  photoUrl        String?
+  publicBio       String?      @db.Text
+  publicEmail     String?
+  termStart       DateTime?
+  termEnd         DateTime?
+  isActive        Boolean      @default(true)
+  isDemo          Boolean      @default(false)
+  publicationStatus PublicationStatus @default(DRAFT)
+  publishedAt     DateTime?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  barangay   Barangay   @relation(fields: [barangayId], references: [id], onDelete: Cascade)
+  committee  Committee? @relation(fields: [committeeId], references: [id])
+  attendances Attendance[]
+  projectsResponsible Project[] @relation("ProjectResponsible")
+
+  @@index([barangayId])
+  @@index([body])
+  @@index([publicationStatus])
+  @@index([publishedAt])
+}
