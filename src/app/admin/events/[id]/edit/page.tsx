@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requirePermission } from "@/lib/permissions/server";
 import { PERMISSIONS } from "@/lib/permissions";
@@ -25,7 +24,12 @@ export default async function EditEventPage({ params }: { params: Promise<{ id: 
 
   return (
     <div className="space-y-6">
-      <PageHeader title={event.title} actions={<div className="flex gap-2">{event.isDemo && <Badge variant="warning">DEMO</Badge>}<PublicationStatusBadge status={event.publicationStatus} /></div>} />
+      <PageHeader
+        backHref="/admin/events"
+        backLabel="Back to events"
+        title={event.title}
+        actions={<div className="flex gap-2">{event.isDemo && <Badge variant="warning">DEMO</Badge>}<PublicationStatusBadge status={event.publicationStatus} /></div>}
+      />
       <PublicationActions recordId={id} currentStatus={event.publicationStatus} availableTransitions={transitions} onTransition={transitionEventAction} />
       <form action={updateEventAction.bind(null, id)} className="max-w-2xl space-y-4 rounded-lg border border-[var(--color-border)] bg-white p-6">
         <div className="space-y-2"><Label htmlFor="title">Title</Label><Input id="title" name="title" defaultValue={event.title} required /></div>
@@ -38,7 +42,7 @@ export default async function EditEventPage({ params }: { params: Promise<{ id: 
         <div className="space-y-2"><Label htmlFor="location">Location</Label><Input id="location" name="location" defaultValue={event.location ?? ""} /></div>
         <div className="space-y-2"><Label htmlFor="organizer">Organizer</Label><Input id="organizer" name="organizer" defaultValue={event.organizer ?? ""} /></div>
         <label className="flex items-center gap-2 text-sm"><input type="checkbox" name="isSk" defaultChecked={event.isSk} /> SK event</label>
-        <div className="flex gap-2"><Button type="submit">Save</Button><Button type="button" variant="outline" asChild><Link href="/admin/events">Back</Link></Button></div>
+        <div className="flex gap-2"><Button type="submit">Save</Button></div>
       </form>
     </div>
   );

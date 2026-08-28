@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AttendanceStatus, MeetingStatus } from "@prisma/client";
 import { requirePermission } from "@/lib/permissions/server";
@@ -36,7 +35,12 @@ export default async function EditMeetingPage({ params }: { params: Promise<{ id
 
   return (
     <div className="space-y-6">
-      <PageHeader title={meeting.title} actions={<div className="flex gap-2">{meeting.isDemo && <Badge variant="warning">DEMO</Badge>}<PublicationStatusBadge status={meeting.publicationStatus} /></div>} />
+      <PageHeader
+        backHref="/admin/meetings"
+        backLabel="Back to meetings"
+        title={meeting.title}
+        actions={<div className="flex gap-2">{meeting.isDemo && <Badge variant="warning">DEMO</Badge>}<PublicationStatusBadge status={meeting.publicationStatus} /></div>}
+      />
       <PublicationActions recordId={id} currentStatus={meeting.publicationStatus} availableTransitions={transitions} onTransition={transitionMeetingAction} />
       <form action={updateMeetingAction.bind(null, id)} className="max-w-2xl space-y-4 rounded-lg border border-[var(--color-border)] bg-white p-6">
         <div className="space-y-2"><Label htmlFor="meetingType">Type</Label><Input id="meetingType" name="meetingType" defaultValue={meeting.meetingType} required /></div>
@@ -82,7 +86,6 @@ export default async function EditMeetingPage({ params }: { params: Promise<{ id
         </form>
       )}
 
-      <Button type="button" variant="outline" asChild><Link href="/admin/meetings">Back</Link></Button>
     </div>
   );
 }

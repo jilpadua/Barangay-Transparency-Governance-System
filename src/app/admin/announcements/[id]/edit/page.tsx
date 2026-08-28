@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requirePermission } from "@/lib/permissions/server";
 import { PERMISSIONS } from "@/lib/permissions";
@@ -24,7 +23,12 @@ export default async function EditAnnouncementPage({ params }: { params: Promise
 
   return (
     <div className="space-y-6">
-      <PageHeader title={announcement.title} actions={<div className="flex gap-2">{announcement.isDemo && <Badge variant="warning">DEMO</Badge>}<PublicationStatusBadge status={announcement.publicationStatus} /></div>} />
+      <PageHeader
+        backHref="/admin/announcements"
+        backLabel="Back to announcements"
+        title={announcement.title}
+        actions={<div className="flex gap-2">{announcement.isDemo && <Badge variant="warning">DEMO</Badge>}<PublicationStatusBadge status={announcement.publicationStatus} /></div>}
+      />
       <PublicationActions recordId={id} currentStatus={announcement.publicationStatus} availableTransitions={transitions} onTransition={transitionAnnouncementAction} />
       <form action={updateAnnouncementAction.bind(null, id)} className="max-w-2xl space-y-4 rounded-lg border border-[var(--color-border)] bg-white p-6">
         <div className="space-y-2"><Label htmlFor="title">Title</Label><Input id="title" name="title" defaultValue={announcement.title} required /></div>
@@ -34,7 +38,7 @@ export default async function EditAnnouncementPage({ params }: { params: Promise
           <div className="space-y-2"><Label htmlFor="expireDate">Expire date</Label><Input id="expireDate" name="expireDate" type="date" defaultValue={announcement.expireDate?.toISOString().slice(0, 10) ?? ""} /></div>
         </div>
         <label className="flex items-center gap-2 text-sm"><input type="checkbox" name="featured" defaultChecked={announcement.featured} /> Featured</label>
-        <div className="flex gap-2"><Button type="submit">Save</Button><Button type="button" variant="outline" asChild><Link href="/admin/announcements">Back</Link></Button></div>
+        <div className="flex gap-2"><Button type="submit">Save</Button></div>
       </form>
     </div>
   );

@@ -19,6 +19,8 @@ export default async function NewOfficialPage() {
   return (
     <div className="space-y-6">
       <PageHeader
+        backHref="/admin/officials"
+        backLabel="Back to officials"
         title="Add official"
         description="Create a new barangay or SK official profile."
       />

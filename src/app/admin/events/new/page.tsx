@@ -14,7 +14,12 @@ export default async function NewEventPage() {
   await requirePermission(PERMISSIONS.EVENTS_MANAGE);
   return (
     <div className="space-y-6">
-      <PageHeader title="Add event" description="Create a new event." />
+      <PageHeader
+        backHref="/admin/events"
+        backLabel="Back to events"
+        title="Add event"
+        description="Create a new event."
+      />
       <form action={createEventAction} className="max-w-2xl space-y-4 rounded-lg border border-[var(--color-border)] bg-white p-6">
         <div className="space-y-2"><Label htmlFor="title">Title</Label><Input id="title" name="title" required /></div>
         <div className="space-y-2"><Label htmlFor="description">Description</Label><Textarea id="description" name="description" rows={4} /></div>

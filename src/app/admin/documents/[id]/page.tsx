@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DocumentVisibility } from "@prisma/client";
 import { requirePermission } from "@/lib/permissions/server";
@@ -49,6 +48,8 @@ export default async function DocumentDetailPage({
   return (
     <div className="space-y-6">
       <PageHeader
+        backHref="/admin/documents"
+        backLabel="Back to documents"
         title={document.title}
         description={`Document code: ${document.documentCode}`}
         actions={
@@ -176,10 +177,6 @@ export default async function DocumentDetailPage({
         </div>
         <Button type="submit">Upload version</Button>
       </form>
-
-      <Button type="button" variant="outline" asChild>
-        <Link href="/admin/documents">Back to list</Link>
-      </Button>
     </div>
   );
 }

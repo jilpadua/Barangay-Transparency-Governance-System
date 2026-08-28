@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LegalInstrumentStatus } from "@prisma/client";
 import { requirePermission } from "@/lib/permissions/server";
@@ -26,7 +25,13 @@ export default async function EditOrdinancePage({ params }: { params: Promise<{ 
 
   return (
     <div className="space-y-6">
-      <PageHeader title={ordinance.title} description={ordinance.referenceNumber} actions={<div className="flex gap-2">{ordinance.isDemo && <Badge variant="warning">DEMO</Badge>}<PublicationStatusBadge status={ordinance.publicationStatus} /></div>} />
+      <PageHeader
+        backHref="/admin/ordinances"
+        backLabel="Back to ordinances"
+        title={ordinance.title}
+        description={ordinance.referenceNumber}
+        actions={<div className="flex gap-2">{ordinance.isDemo && <Badge variant="warning">DEMO</Badge>}<PublicationStatusBadge status={ordinance.publicationStatus} /></div>}
+      />
       <PublicationActions recordId={id} currentStatus={ordinance.publicationStatus} availableTransitions={transitions} onTransition={transitionOrdinanceAction} />
       <form action={updateOrdinanceAction.bind(null, id)} className="max-w-2xl space-y-4 rounded-lg border border-[var(--color-border)] bg-white p-6">
         <div className="space-y-2"><Label htmlFor="referenceNumber">Reference number</Label><Input id="referenceNumber" name="referenceNumber" defaultValue={ordinance.referenceNumber} required /></div>
@@ -43,7 +48,7 @@ export default async function EditOrdinancePage({ params }: { params: Promise<{ 
         </div>
         {ordinance.documentUrl && <p className="text-sm">Current file: <a href={ordinance.documentUrl} className="text-[var(--color-accent)] hover:underline" target="_blank" rel="noopener noreferrer">Download</a></p>}
         <FileUploadField label="Replace PDF (optional)" />
-        <div className="flex gap-2"><Button type="submit">Save</Button><Button type="button" variant="outline" asChild><Link href="/admin/ordinances">Back</Link></Button></div>
+        <div className="flex gap-2"><Button type="submit">Save</Button></div>
       </form>
     </div>
   );

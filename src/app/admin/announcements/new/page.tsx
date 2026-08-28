@@ -14,7 +14,11 @@ export default async function NewAnnouncementPage() {
   await requirePermission(PERMISSIONS.ANNOUNCEMENTS_MANAGE);
   return (
     <div className="space-y-6">
-      <PageHeader title="Add announcement" />
+      <PageHeader
+        backHref="/admin/announcements"
+        backLabel="Back to announcements"
+        title="Add announcement"
+      />
       <form action={createAnnouncementAction} className="max-w-2xl space-y-4 rounded-lg border border-[var(--color-border)] bg-white p-6">
         <div className="space-y-2"><Label htmlFor="title">Title</Label><Input id="title" name="title" required /></div>
         <div className="space-y-2"><Label htmlFor="content">Content</Label><Textarea id="content" name="content" rows={8} required /></div>

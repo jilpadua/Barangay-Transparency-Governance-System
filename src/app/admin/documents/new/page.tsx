@@ -18,6 +18,8 @@ export default async function NewDocumentPage() {
   return (
     <div className="space-y-6">
       <PageHeader
+        backHref="/admin/documents"
+        backLabel="Back to documents"
         title="Add document"
         description="Upload a new document with initial version 1.0."
       />

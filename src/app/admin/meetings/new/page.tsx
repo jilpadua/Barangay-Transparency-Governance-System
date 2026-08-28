@@ -15,7 +15,11 @@ export default async function NewMeetingPage() {
   await requirePermission(PERMISSIONS.MEETINGS_MANAGE);
   return (
     <div className="space-y-6">
-      <PageHeader title="Add meeting" />
+      <PageHeader
+        backHref="/admin/meetings"
+        backLabel="Back to meetings"
+        title="Add meeting"
+      />
       <form action={createMeetingAction} className="max-w-2xl space-y-4 rounded-lg border border-[var(--color-border)] bg-white p-6">
         <div className="space-y-2"><Label htmlFor="meetingType">Type</Label><Input id="meetingType" name="meetingType" required placeholder="e.g. Regular Session" /></div>
         <div className="space-y-2"><Label htmlFor="title">Title</Label><Input id="title" name="title" required /></div>

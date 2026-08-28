@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { OfficialBody } from "@prisma/client";
 import { requirePermission } from "@/lib/permissions/server";
@@ -48,6 +47,8 @@ export default async function EditOfficialPage({
   return (
     <div className="space-y-6">
       <PageHeader
+        backHref="/admin/officials"
+        backLabel="Back to officials"
         title={`Edit: ${official.firstName} ${official.lastName}`}
         description="Update official profile and publication status."
         actions={
@@ -193,9 +194,6 @@ export default async function EditOfficialPage({
         </label>
         <div className="flex gap-2">
           <Button type="submit">Save changes</Button>
-          <Button type="button" variant="outline" asChild>
-            <Link href="/admin/officials">Back to list</Link>
-          </Button>
         </div>
       </form>
     </div>
