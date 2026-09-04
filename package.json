@@ -13,7 +13,7 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:push": "prisma db push",
-    "db:seed": "tsx prisma/seed.ts",
+    "db:seed": "tsx prisma/seed/index.ts",
     "db:studio": "prisma studio",
     "postinstall": "prisma generate"
   },
@@ -38,7 +38,7 @@
     "zod": "^3.25.42"
   },
   "prisma": {
-    "seed": "tsx prisma/seed.ts"
+    "seed": "tsx prisma/seed/index.ts"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",

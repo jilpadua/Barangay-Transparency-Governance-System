@@ -1,0 +1,92 @@
+// ─── Finance ─────────────────────────────────────────────────────────────────
+
+model FundSource {
+  id         String   @id @default(cuid())
+  barangayId String
+  name       String
+  code       String?
+  description String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  barangay Barangay @relation(fields: [barangayId], references: [id], onDelete: Cascade)
+  budgets  Budget[]
+  expenses Expense[]
+  projects Project[]
+
+  @@index([barangayId])
+}
+
+model Budget {
+  id               String            @id @default(cuid())
+  barangayId       String
+  fundSourceId     String?
+  fiscalYear       Int
+  category         String
+  title            String
+  approvedAmount   Decimal           @db.Decimal(18, 2)
+  description      String?           @db.Text
+  documentId       String?
+  publicationStatus PublicationStatus @default(DRAFT)
+  publishedAt      DateTime?
+  isDemo           Boolean           @default(false)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+
+  barangay    Barangay           @relation(fields: [barangayId], references: [id], onDelete: Cascade)
+  fundSource  FundSource?        @relation(fields: [fundSourceId], references: [id])
+  allocations BudgetAllocation[]
+  expenses    Expense[]
+
+  @@index([barangayId])
+  @@index([fiscalYear])
+  @@index([category])
+  @@index([publicationStatus])
+  @@index([publishedAt])
+}
+
+model BudgetAllocation {
+  id          String   @id @default(cuid())
+  budgetId    String
+  lineItem    String
+  amount      Decimal  @db.Decimal(18, 2)
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  budget Budget @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+
+  @@index([budgetId])
+}
+
+model Expense {
+  id               String            @id @default(cuid())
+  barangayId       String
+  budgetId         String?
+  fundSourceId     String?
+  projectId        String?
+  expenseDate      DateTime
+  referenceNumber  String
+  amount           Decimal           @db.Decimal(18, 2)
+  purpose          String
+  payee            String?
+  supplierId       String?
+  publicationStatus PublicationStatus @default(DRAFT)
+  publishedAt      DateTime?
+  isDemo           Boolean           @default(false)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+
+  barangay   Barangay    @relation(fields: [barangayId], references: [id], onDelete: Cascade)
+  budget     Budget?     @relation(fields: [budgetId], references: [id])
+  fundSource FundSource? @relation(fields: [fundSourceId], references: [id])
+  project    Project?    @relation(fields: [projectId], references: [id])
+  supplier   Supplier?   @relation(fields: [supplierId], references: [id])
+
+  @@index([barangayId])
+  @@index([referenceNumber])
+  @@index([expenseDate])
+  @@index([projectId])
+  @@index([publicationStatus])
+  @@index([createdAt])
+}

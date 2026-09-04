@@ -1,0 +1,47 @@
+// ─── Meetings ────────────────────────────────────────────────────────────────
+
+model Meeting {
+  id          String        @id @default(cuid())
+  barangayId  String
+  meetingType String
+  title       String
+  meetingDate DateTime
+  startTime   String?
+  endTime     String?
+  location    String?
+  agenda      String?       @db.Text
+  minutes     String?       @db.Text
+  status      MeetingStatus @default(SCHEDULED)
+  publicationStatus PublicationStatus @default(DRAFT)
+  publishedAt DateTime?
+  isDemo      Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  barangay    Barangay     @relation(fields: [barangayId], references: [id], onDelete: Cascade)
+  attendances Attendance[]
+
+  @@index([barangayId])
+  @@index([meetingDate])
+  @@index([status])
+  @@index([publicationStatus])
+  @@index([createdAt])
+}
+
+model Attendance {
+  id         String           @id @default(cuid())
+  meetingId  String
+  officialId String
+  status     AttendanceStatus
+  remarks    String?
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+
+  meeting  Meeting  @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+  official Official @relation(fields: [officialId], references: [id], onDelete: Cascade)
+
+  @@unique([meetingId, officialId])
+  @@index([meetingId])
+  @@index([officialId])
+  @@index([status])
+}
